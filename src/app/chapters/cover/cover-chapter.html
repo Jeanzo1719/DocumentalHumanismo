@@ -1,0 +1,130 @@
+<div data-slot="stage">
+  <header class="v-stage-meta">
+    <h2 id="stage-title" tabindex="-1" class="v-stage-chip">CH 01 · {{ documentary.title }}</h2>
+    <p class="v-stage-state">{{ stageState() }}</p>
+  </header>
+
+  <div class="v-stage-body">
+    @if (stageSrc(); as src) {
+      <div class="v-stage-frame">
+        @if (previewUrl()) {
+          <p class="v-stage-badge">Previsualización local</p>
+        }
+        <app-video-player
+          [src]="src"
+          [poster]="documentary.video.poster"
+          [captions]="documentary.video.captions"
+          [title]="documentary.title"
+          [pendingPath]="'/assets/videos/documental.mp4'"
+          [pendingLabel]="'Documental completo pendiente de producción'"
+          preload="metadata"
+          [dark]="true"
+          (durationChange)="onDuration($event)"
+        />
+      </div>
+    } @else {
+      <div class="v-stage-frame v-stage-frame--plate">
+        <p class="plate-eyebrow">
+          Documental completo · <strong>pendiente de producción</strong> · {{ documentary.year }}
+        </p>
+        <h3 class="plate-title">{{ documentary.title }}</h3>
+        <p class="plate-sub">{{ documentary.subtitle }}</p>
+        <dl class="plate-slate">
+          <div>
+            <dt>Escenario</dt>
+            <dd>{{ documentary.setting }}</dd>
+          </div>
+          <div>
+            <dt>Fecha</dt>
+            <dd>{{ documentary.date }}</dd>
+          </div>
+          <div>
+            <dt>Modalidad</dt>
+            <dd>{{ documentary.modality }}</dd>
+          </div>
+        </dl>
+        <p class="plate-note">
+          Espacio preparado para el montaje definitivo de {{ range.minMinutes }} a
+          {{ range.maxMinutes }} minutos. Los registros de la experiencia (caps. 04 y 06) son piezas
+          breves, no el documental completo.
+        </p>
+      </div>
+    }
+  </div>
+
+  @if (durationWarning(); as warning) {
+    <p class="v-stage-caption">
+      <span>{{ warning }}</span>
+    </p>
+  }
+</div>
+
+<div data-slot="dossier">
+  <header class="v-dossier-head">
+    <div>
+      <p class="v-dossier-eyebrow">Capítulo 01 · Introducción</p>
+      <h3 class="v-dossier-title">Portada</h3>
+    </div>
+    <button type="button" class="v-dossier-close" (click)="ui.closeInfoSheet()">
+      Cerrar ficha
+    </button>
+  </header>
+
+  <div class="v-dossier-body">
+    <figure class="dos-block dos-portrait">
+      <app-photo [media]="cover" />
+    </figure>
+
+    <section class="dos-block">
+      <h4 class="dos-label">La experiencia</h4>
+      <p class="dos-text">{{ documentary.synopsis }}</p>
+    </section>
+
+    <section class="dos-block">
+      <h4 class="dos-label">Autoría</h4>
+      <p class="dos-text">{{ documentary.byline }}</p>
+    </section>
+
+    <section class="dos-block">
+      <h4 class="dos-label">Datos</h4>
+      <dl class="dos-dl">
+        <div>
+          <dt>Institución</dt>
+          <dd>{{ documentary.institution }}</dd>
+        </div>
+        <div>
+          <dt>Documental</dt>
+          <dd>
+            Título: {{ documentary.title }} · Rango previsto: {{ range.minMinutes }}–{{
+              range.maxMinutes
+            }}
+            min
+          </dd>
+        </div>
+      </dl>
+    </section>
+
+    <section class="dos-block">
+      <h4 class="dos-label">Acciones</h4>
+      <div class="dos-actions">
+        <button type="button" class="dos-btn dos-btn--solid" (click)="ui.select('capitulo-02')">
+          Comenzar la experiencia →
+        </button>
+        <input
+          id="documental-local-file"
+          class="visually-hidden"
+          type="file"
+          accept="video/mp4,video/*"
+          (change)="onPreviewFile($event)"
+        />
+        @if (previewUrl()) {
+          <button type="button" class="dos-btn" (click)="clearPreview()">
+            Quitar previsualización
+          </button>
+        } @else {
+          <label class="dos-btn" for="documental-local-file">Previsualizar un MP4 local</label>
+        }
+      </div>
+    </section>
+  </div>
+</div>

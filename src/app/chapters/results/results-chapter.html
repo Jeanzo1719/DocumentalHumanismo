@@ -1,0 +1,87 @@
+<div data-slot="stage">
+  <header class="v-stage-meta">
+    <h2 id="stage-title" tabindex="-1" class="v-stage-chip">CH 05 · Resultados</h2>
+    <p class="v-stage-state">El recorrido del encuentro</p>
+  </header>
+
+  <div class="v-stage-body">
+    <div class="v-stage-frame v-stage-frame--plate">
+      <p class="plate-eyebrow">
+        Momento {{ pad(selected()) }} de {{ pad(content.moments.length - 1) }}
+      </p>
+      <p class="plate-index" aria-hidden="true">{{ pad(selected()) }}</p>
+      <h3 class="plate-title">{{ content.moments[selected()].title }}</h3>
+      <p class="plate-text">{{ content.moments[selected()].text }}</p>
+    </div>
+  </div>
+
+  <p class="v-stage-caption">
+    <span
+      >Lo observado y lo que la experiencia dejó al responsable se distinguen en el dosier.</span
+    >
+  </p>
+</div>
+
+<div data-slot="dossier">
+  <header class="v-dossier-head">
+    <div>
+      <p class="v-dossier-eyebrow">Capítulo 05 · Lo que quedó</p>
+      <h3 class="v-dossier-title">Resultados</h3>
+    </div>
+    <button type="button" class="v-dossier-close" (click)="ui.closeInfoSheet()">
+      Cerrar ficha
+    </button>
+  </header>
+
+  <div class="v-dossier-body">
+    <section class="dos-block">
+      <h4 class="dos-label">Resumen</h4>
+      <p class="dos-text">{{ content.lead }}</p>
+    </section>
+
+    <section class="dos-block">
+      <h4 class="dos-label">El recorrido del encuentro</h4>
+      <ul class="dos-chips">
+        @for (moment of content.moments; track moment.title; let i = $index) {
+          <li>
+            <button
+              type="button"
+              class="dos-chip"
+              [class.dos-chip--active]="selected() === i"
+              [attr.aria-current]="selected() === i ? 'true' : null"
+              (click)="selected.set(i)"
+            >
+              <span class="dos-chip-index" aria-hidden="true">{{ pad(i) }}</span>
+              <span>
+                <span class="dos-chip-title">{{ moment.title }}</span>
+              </span>
+            </button>
+          </li>
+        }
+      </ul>
+    </section>
+
+    <section class="dos-block">
+      <h4 class="dos-label">Resultados observados</h4>
+      <p class="dos-note">Lo que se pudo ver y escuchar durante el encuentro.</p>
+      <ul class="dos-list">
+        @for (item of content.observed; track $index) {
+          <li>{{ item }}</li>
+        }
+      </ul>
+    </section>
+
+    <section class="dos-block">
+      <h4 class="dos-label">Reconocimiento personal</h4>
+      <p class="dos-note">
+        Lo que la experiencia dejó en el responsable, en su propia lectura. No constituye un
+        resultado observado por terceros.
+      </p>
+      <ul class="dos-list">
+        @for (item of content.reflection; track $index) {
+          <li>{{ item }}</li>
+        }
+      </ul>
+    </section>
+  </div>
+</div>

@@ -1,0 +1,47 @@
+<div data-slot="stage">
+  <header class="v-stage-meta">
+    <h2 id="stage-title" tabindex="-1" class="v-stage-chip">CH 03 · La problemática</h2>
+    <p class="v-stage-state">Declaración del punto de partida</p>
+  </header>
+
+  <div class="v-stage-body">
+    <div class="v-stage-frame v-stage-frame--plate">
+      <p class="plate-eyebrow">La problemática identificada</p>
+      <blockquote class="plate-quote">
+        <p>{{ content.statement }}</p>
+      </blockquote>
+      <p class="plate-note">
+        Formulación prudente: se aclara en el dosier qué parte corresponde a lo observado y qué
+        parte a la respuesta de la experiencia.
+      </p>
+    </div>
+  </div>
+</div>
+
+<div data-slot="dossier">
+  <header class="v-dossier-head">
+    <div>
+      <p class="v-dossier-eyebrow">Capítulo 03 · El punto de partida</p>
+      <h3 class="v-dossier-title">La problemática</h3>
+    </div>
+    <button type="button" class="v-dossier-close" (click)="ui.closeInfoSheet()">
+      Cerrar ficha
+    </button>
+  </header>
+
+  <div class="v-dossier-body">
+    <section class="dos-block">
+      <h4 class="dos-label">Lo observado en el escenario</h4>
+      @for (paragraph of content.observed; track $index) {
+        <p class="dos-text">{{ paragraph }}</p>
+      }
+    </section>
+
+    <section class="dos-block">
+      <h4 class="dos-label">La respuesta de la experiencia</h4>
+      @for (paragraph of content.response; track $index) {
+        <p class="dos-text">{{ paragraph }}</p>
+      }
+    </section>
+  </div>
+</div>

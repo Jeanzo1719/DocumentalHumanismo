@@ -1,0 +1,26 @@
+# Compilados
+/dist
+/tmp
+/out-tsc
+/bazel-out
+
+# Node
+/node_modules
+npm-debug.log
+yarn-error.log
+pnpm-debug.log
+
+# Angular cache
+/.angular/cache
+
+# IDE y editores
+.idea/
+.vscode/*
+!.vscode/extensions.json
+!.vscode/tasks.json
+!.vscode/launch.json
+.history/*
+
+# Sistema
+.DS_Store
+Thumbs.db

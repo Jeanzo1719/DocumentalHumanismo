@@ -1,0 +1,32 @@
+<div class="before-after__stage" [style.--pos]="position() + '%'">
+  <div class="before-after__layer">
+    <app-photo class="before-after__photo" [media]="after()" [showCaption]="false" fill />
+  </div>
+  <div class="before-after__layer before-after__layer--before">
+    <app-photo class="before-after__photo" [media]="before()" [showCaption]="false" fill />
+  </div>
+
+  <span class="before-after__tag before-after__tag--before">{{ beforeLabel() }}</span>
+  <span class="before-after__tag before-after__tag--after">{{ afterLabel() }}</span>
+
+  <span class="before-after__handle" aria-hidden="true">
+    <svg viewBox="0 0 24 24" width="18" height="18">
+      <path d="M9 6l-6 6 6 6M15 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.6" />
+    </svg>
+  </span>
+
+  <input
+    class="before-after__range"
+    type="range"
+    min="0"
+    max="100"
+    step="1"
+    [value]="position()"
+    [attr.aria-label]="ariaLabel()"
+    [attr.aria-valuetext]="
+      'Antes visible ' + position() + '%, después visible ' + (100 - position()) + '%'
+    "
+    (input)="onInput($event)"
+  />
+</div>
+<p class="before-after__hint">Desliza para comparar</p>

@@ -1,0 +1,58 @@
+<div data-slot="stage">
+  <header class="v-stage-meta">
+    <h2 id="stage-title" tabindex="-1" class="v-stage-chip">CH 06 · Reflexión final</h2>
+    <p class="v-stage-state">Registro disponible · 2:50 · formato vertical</p>
+  </header>
+
+  <div class="v-stage-body">
+    <div class="v-stage-frame">
+      <app-video-player
+        [src]="video.src"
+        [poster]="video.poster"
+        [captions]="video.captions"
+        [title]="'Reflexión final de la experiencia'"
+        [pendingPath]="'/assets/videos/' + video.id + '.mp4'"
+        preload="none"
+        [dark]="true"
+      />
+    </div>
+  </div>
+
+  <p class="v-stage-caption">
+    <span>{{ video.caption }}</span>
+    <span>{{ video.credit }}</span>
+  </p>
+</div>
+
+<div data-slot="dossier">
+  <header class="v-dossier-head">
+    <div>
+      <p class="v-dossier-eyebrow">Capítulo 06 · La propia voz</p>
+      <h3 class="v-dossier-title">Reflexión final</h3>
+    </div>
+    <button type="button" class="v-dossier-close" (click)="ui.closeInfoSheet()">
+      Cerrar ficha
+    </button>
+  </header>
+
+  <div class="v-dossier-body">
+    <section class="dos-block">
+      <h4 class="dos-label">La pregunta que guía la experiencia</h4>
+      <blockquote class="dos-quote">{{ content.question }}</blockquote>
+    </section>
+
+    <section class="dos-block">
+      <h4 class="dos-label">El video</h4>
+      <p class="dos-text">{{ content.lead }}</p>
+    </section>
+
+    <section class="dos-block">
+      <h4 class="dos-label">Preguntas respondidas</h4>
+      <ol class="dos-list dos-list--numbered">
+        @for (question of content.questions; track $index) {
+          <li>{{ question }}</li>
+        }
+      </ol>
+    </section>
+  </div>
+</div>

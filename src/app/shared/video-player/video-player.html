@@ -1,0 +1,27 @@
+@if (src()) {
+  <video
+    #player
+    class="video-player__media"
+    controls
+    playsinline
+    [preload]="preload()"
+    [src]="src()"
+    [poster]="poster() ?? ''"
+    [attr.aria-label]="title()"
+    (loadedmetadata)="onMetadata($event)"
+  >
+    @if (captions()) {
+      <track kind="captions" srclang="es" label="Subtítulos" [src]="captions()" />
+    }
+    Tu navegador no puede reproducir este video.
+  </video>
+} @else {
+  <div class="video-player__empty">
+    <app-pending-frame
+      kind="video"
+      [path]="pendingPath()"
+      [label]="pendingLabel()"
+      [class.pending-frame--dark]="dark()"
+    />
+  </div>
+}

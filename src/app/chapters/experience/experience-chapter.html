@@ -1,0 +1,101 @@
+<div data-slot="stage">
+  <header class="v-stage-meta">
+    <h2 id="stage-title" tabindex="-1" class="v-stage-chip">CH 04 · La experiencia</h2>
+    <p class="v-stage-state">
+      @if (isEncounter()) {
+        Registro disponible · 0:30
+      } @else {
+        {{ selected().dateLabel }}
+      }
+    </p>
+  </header>
+
+  <div class="v-stage-body">
+    @if (isEncounter()) {
+      <div class="v-stage-frame">
+        <app-video-player
+          [src]="encounterVideo.src"
+          [poster]="encounterVideo.poster"
+          [captions]="encounterVideo.captions"
+          [title]="encounterVideo.alt"
+          [pendingPath]="'/assets/videos/' + encounterVideo.id + '.mp4'"
+          preload="none"
+        />
+      </div>
+    } @else {
+      <div class="v-stage-frame v-stage-frame--plate">
+        <p class="plate-index" aria-hidden="true">{{ selected().step }}</p>
+        <p class="plate-date">{{ selected().dateLabel }}</p>
+        <h3 class="plate-title">{{ selected().title }}</h3>
+        <p class="plate-text">{{ selected().description }}</p>
+      </div>
+    }
+  </div>
+
+  @if (isEncounter()) {
+    <p class="v-stage-caption">
+      <span>{{ encounterVideo.caption }}</span>
+      <span>{{ encounterVideo.credit }}</span>
+    </p>
+  }
+</div>
+
+<div data-slot="dossier">
+  <header class="v-dossier-head">
+    <div>
+      <p class="v-dossier-eyebrow">Capítulo 04 · El recorrido</p>
+      <h3 class="v-dossier-title">La experiencia</h3>
+    </div>
+    <button type="button" class="v-dossier-close" (click)="ui.closeInfoSheet()">
+      Cerrar ficha
+    </button>
+  </header>
+
+  <div class="v-dossier-body">
+    <section class="dos-block">
+      <h4 class="dos-label">Resumen</h4>
+      <p class="dos-text">{{ content.lead }}</p>
+    </section>
+
+    <section class="dos-block">
+      <h4 class="dos-label">Etapas</h4>
+      <ul class="dos-chips">
+        @for (phase of phases; track phase.id; let i = $index) {
+          <li>
+            <button
+              type="button"
+              class="dos-chip"
+              [class.dos-chip--active]="selectedId() === phase.id"
+              [attr.aria-current]="selectedId() === phase.id ? 'true' : null"
+              (click)="selectedId.set(phase.id)"
+            >
+              <span class="dos-chip-index" aria-hidden="true">{{ phase.step }}</span>
+              <span>
+                <span class="dos-chip-title">{{ phase.title }}</span>
+                <span class="dos-chip-date">{{ phase.dateLabel }}</span>
+              </span>
+            </button>
+          </li>
+        }
+      </ul>
+    </section>
+
+    <section class="dos-block">
+      <h4 class="dos-label">Descripción de la etapa</h4>
+      <p class="dos-text">{{ selected().description }}</p>
+      @if (selected().materials.length) {
+        <p class="dos-note">Materiales: {{ selected().materials.join(' · ') }}</p>
+      }
+    </section>
+
+    <section class="dos-block">
+      <h4 class="dos-label">Nota de registro</h4>
+      <p class="dos-note">
+        {{
+          selected().mediaNote ??
+            'Las etapas de preparación y despedida no cuentan con registro audiovisual; la decisión de los materiales queda documentada en el capítulo 02.'
+        }}
+      </p>
+    </section>
+  </div>
+</div>

@@ -1,0 +1,70 @@
+@if (ui.fichaOpen()) {
+  <div
+    class="ficha"
+    data-room-overlay
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="ficha-titulo"
+  >
+    <div class="ficha__backdrop" (click)="ui.toggleFicha()" aria-hidden="true"></div>
+
+    <div class="ficha__panel">
+      <header class="ficha__head">
+        <p class="ficha__eyebrow">Ficha de auditoría</p>
+        <h2 id="ficha-titulo" class="ficha__title">{{ documentary.title }}</h2>
+        <button #close type="button" class="ficha__close" (click)="ui.toggleFicha()">Cerrar</button>
+      </header>
+
+      <div class="ficha__body">
+        <section class="ficha__block" aria-labelledby="ficha-datos">
+          <h3 id="ficha-datos">Datos de la experiencia</h3>
+          <dl class="ficha__dl">
+            @for (row of rows; track row.label) {
+              <div>
+                <dt>{{ row.label }}</dt>
+                <dd>{{ row.value }}</dd>
+              </div>
+            }
+          </dl>
+        </section>
+
+        <section class="ficha__block" aria-labelledby="ficha-capitulos">
+          <h3 id="ficha-capitulos">Estado por capítulo</h3>
+          <ul class="ficha__states">
+            @for (state of states; track state.number) {
+              <li>
+                <span class="ficha__state-number">{{ state.number }}</span>
+                <span class="ficha__state-title">{{ state.title }}</span>
+                <span class="ficha__state-value">{{ state.state }}</span>
+              </li>
+            }
+          </ul>
+        </section>
+
+        <section class="ficha__block" aria-labelledby="ficha-pendientes">
+          <h3 id="ficha-pendientes">Pendientes declarados</h3>
+          <ul class="ficha__pending-list">
+            <li>
+              <span class="ficha__pending-label">PENDIENTE DE CONTENIDO</span>
+              Documental completo (10–12 min): <code>public/assets/videos/documental.mp4</code>
+            </li>
+            <li>
+              <span class="ficha__pending-label">PENDIENTE DE CONTENIDO</span>
+              Frase de cierre en los créditos.
+            </li>
+          </ul>
+        </section>
+
+        <section class="ficha__block" aria-labelledby="ficha-etica">
+          <h3 id="ficha-etica">Nota ética del registro</h3>
+          <p class="ficha__ethics">
+            El único registro audiovisual se tomó a distancia y sin capturar la conversación, como
+            decisión consciente para preservar la privacidad, la dignidad y la tranquilidad de la
+            persona acompañada. La página no muestra datos identificatorios de ella. El video de
+            reflexión (capítulo 06) es la voz del responsable de la experiencia.
+          </p>
+        </section>
+      </div>
+    </div>
+  </div>
+}

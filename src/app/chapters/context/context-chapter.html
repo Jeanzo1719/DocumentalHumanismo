@@ -1,0 +1,77 @@
+<div data-slot="stage">
+  <header class="v-stage-meta">
+    <h2 id="stage-title" tabindex="-1" class="v-stage-chip">CH 02 · Contexto y escenario</h2>
+    <p class="v-stage-state">Contexto documentado</p>
+  </header>
+
+  <div class="v-stage-body">
+    <div class="v-stage-frame v-stage-frame--plate">
+      <p class="plate-eyebrow">La experiencia se planeó previamente</p>
+      <p class="plate-index" aria-hidden="true">{{ pad(selected()) }}</p>
+      <h3 class="plate-title">{{ content.sections[selected()].title }}</h3>
+      <p class="plate-text">{{ content.sections[selected()].text }}</p>
+    </div>
+  </div>
+</div>
+
+<div data-slot="dossier">
+  <header class="v-dossier-head">
+    <div>
+      <p class="v-dossier-eyebrow">Capítulo 02 · Dónde y cómo</p>
+      <h3 class="v-dossier-title">Contexto y escenario</h3>
+    </div>
+    <button type="button" class="v-dossier-close" (click)="ui.closeInfoSheet()">
+      Cerrar ficha
+    </button>
+  </header>
+
+  <div class="v-dossier-body">
+    <section class="dos-block">
+      <h4 class="dos-label">Resumen</h4>
+      <p class="dos-text">{{ content.lead }}</p>
+    </section>
+
+    <section class="dos-block">
+      <h4 class="dos-label">Apartados</h4>
+      <ul class="dos-chips">
+        @for (section of content.sections; track section.title; let i = $index) {
+          <li>
+            <button
+              type="button"
+              class="dos-chip"
+              [class.dos-chip--active]="selected() === i"
+              [attr.aria-current]="selected() === i ? 'true' : null"
+              (click)="selected.set(i)"
+            >
+              <span class="dos-chip-index" aria-hidden="true">{{ pad(i) }}</span>
+              <span>
+                <span class="dos-chip-title">{{ section.title }}</span>
+              </span>
+            </button>
+          </li>
+        }
+      </ul>
+    </section>
+
+    @if (photos[0]; as feature) {
+      <section class="dos-block">
+        <h4 class="dos-label">Fotografía del escenario</h4>
+        <div class="dos-media">
+          <app-photo [media]="feature" />
+        </div>
+      </section>
+    }
+
+    <section class="dos-block">
+      <h4 class="dos-label">Datos del escenario</h4>
+      <dl class="dos-dl">
+        @for (fact of content.facts; track fact.label) {
+          <div>
+            <dt>{{ fact.label }}</dt>
+            <dd>{{ fact.value }}</dd>
+          </div>
+        }
+      </dl>
+    </section>
+  </div>
+</div>

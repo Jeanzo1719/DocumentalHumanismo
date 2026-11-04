@@ -1,0 +1,97 @@
+<a class="skip-link" href="#documental">Saltar al escenario</a>
+
+<app-site-header />
+
+<div class="room" [class.room--sheet-open]="ui.infoSheetOpen()">
+  <nav class="room__rail" aria-label="Capítulos del documental">
+    <ol class="room__rail-list">
+      @for (chapter of ui.chapters; track chapter.id) {
+        <li>
+          <button
+            type="button"
+            class="room__rail-item"
+            [class.room__rail-item--active]="chapter.id === ui.activeId()"
+            [attr.aria-current]="chapter.id === ui.activeId() ? 'true' : null"
+            (click)="ui.select(chapter.id)"
+          >
+            <span class="room__rail-number" aria-hidden="true">{{ chapter.number }}</span>
+            <span class="room__rail-body">
+              <span class="room__rail-title">{{ chapter.title }}</span>
+              <span class="room__rail-kicker">{{ chapter.kicker }}</span>
+            </span>
+          </button>
+        </li>
+      }
+    </ol>
+    <p class="room__rail-hint" aria-hidden="true">Navega con ← → o el índice</p>
+  </nav>
+
+  <main id="documental" class="room__main">
+    @switch (ui.activeId()) {
+      @case ('capitulo-01') {
+        <app-cover-chapter />
+      }
+      @case ('capitulo-02') {
+        <app-context-chapter />
+      }
+      @case ('capitulo-03') {
+        <app-problem-chapter />
+      }
+      @case ('capitulo-04') {
+        <app-experience-chapter />
+      }
+      @case ('capitulo-05') {
+        <app-results-chapter />
+      }
+      @case ('capitulo-06') {
+        <app-reflection-chapter />
+      }
+      @case ('capitulo-07') {
+        <app-credits-chapter />
+      }
+    }
+  </main>
+
+  <footer class="room__footer">
+    <button
+      type="button"
+      class="room__nav-btn"
+      (click)="ui.prev()"
+      [disabled]="ui.activeIndex() === 0"
+    >
+      <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
+        <path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="1.5" />
+      </svg>
+      <span class="room__nav-label">Anterior</span>
+    </button>
+
+    <div class="room__steps" aria-hidden="true">
+      @for (chapter of ui.chapters; track chapter.id) {
+        <span class="room__step" [class.room__step--active]="chapter.id === ui.activeId()"></span>
+      }
+    </div>
+
+    <button
+      type="button"
+      class="room__info-btn"
+      (click)="ui.toggleInfoSheet()"
+      [attr.aria-expanded]="ui.infoSheetOpen()"
+    >
+      Ficha del capítulo
+    </button>
+
+    <button
+      type="button"
+      class="room__nav-btn"
+      (click)="ui.next()"
+      [disabled]="ui.activeIndex() === ui.chapters.length - 1"
+    >
+      <span class="room__nav-label">Siguiente</span>
+      <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
+        <path d="M9 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="1.5" />
+      </svg>
+    </button>
+  </footer>
+</div>
+
+<app-ficha />

@@ -1,0 +1,112 @@
+<div data-slot="stage">
+  <header class="v-stage-meta">
+    <h2 id="stage-title" tabindex="-1" class="v-stage-chip">CH 07 · Créditos</h2>
+    <p class="v-stage-state">Cierre del documental</p>
+  </header>
+
+  <div class="v-stage-body">
+    <div class="v-stage-frame v-stage-frame--plate">
+      <p class="plate-eyebrow">Fin</p>
+      <h3 class="plate-title">{{ documentary.title }}</h3>
+      <p class="plate-sub">{{ documentary.subtitle }}</p>
+      <dl class="plate-slate">
+        <div>
+          <dt>Responsable</dt>
+          <dd>{{ credits.team[0]?.name }}</dd>
+        </div>
+        <div>
+          <dt>Escenario</dt>
+          <dd>{{ documentary.setting }}</dd>
+        </div>
+        <div>
+          <dt>Institución</dt>
+          <dd>{{ documentary.institution }}</dd>
+        </div>
+      </dl>
+      <p class="plate-note">{{ documentary.kicker }} · {{ documentary.year }}</p>
+    </div>
+  </div>
+</div>
+
+<div data-slot="dossier">
+  <header class="v-dossier-head">
+    <div>
+      <p class="v-dossier-eyebrow">Capítulo 07 · Equipo y agradecimientos</p>
+      <h3 class="v-dossier-title">Créditos</h3>
+    </div>
+    <button type="button" class="v-dossier-close" (click)="ui.closeInfoSheet()">
+      Cerrar ficha
+    </button>
+  </header>
+
+  <div class="v-dossier-body">
+    <section class="dos-block">
+      <h4 class="dos-label">Equipo</h4>
+      <ul class="dos-list">
+        @for (person of credits.team; track person.name) {
+          <li>
+            <strong>{{ person.name }}</strong> — {{ person.role }}
+          </li>
+        }
+      </ul>
+    </section>
+
+    @if (credits.collaborators.length) {
+      <section class="dos-block">
+        <h4 class="dos-label">Colaboradores</h4>
+        <ul class="dos-list">
+          @for (person of credits.collaborators; track person.name) {
+            <li>
+              <strong>{{ person.name }}</strong> — {{ person.role }}
+            </li>
+          }
+        </ul>
+      </section>
+    }
+
+    <section class="dos-block">
+      <h4 class="dos-label">Contexto institucional</h4>
+      <dl class="dos-dl">
+        <div>
+          <dt>Escenario de práctica</dt>
+          <dd>{{ credits.setting }}</dd>
+        </div>
+        <div>
+          <dt>Institución</dt>
+          <dd>{{ credits.institution }}</dd>
+        </div>
+        @if (credits.delivery) {
+          <div>
+            <dt>Entrega</dt>
+            <dd>{{ credits.delivery }}</dd>
+          </div>
+        }
+      </dl>
+    </section>
+
+    @if (credits.acknowledgements.length) {
+      <section class="dos-block">
+        <h4 class="dos-label">Reconocimientos</h4>
+        <ul class="dos-list">
+          @for (item of credits.acknowledgements; track $index) {
+            <li>{{ item }}</li>
+          }
+        </ul>
+      </section>
+    }
+
+    <section class="dos-block">
+      <h4 class="dos-label">Frase de cierre</h4>
+      <p class="dos-note">{{ credits.closing }}</p>
+    </section>
+
+    <section class="dos-block">
+      <h4 class="dos-label">Navegación</h4>
+      <div class="dos-actions">
+        <button type="button" class="dos-btn" (click)="ui.select('capitulo-01')">
+          ← Volver a la sala
+        </button>
+      </div>
+    </section>
+  </div>
+</div>

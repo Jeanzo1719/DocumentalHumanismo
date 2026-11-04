@@ -1,0 +1,63 @@
+<div class="site-header__bar">
+  <a class="site-header__brand" href="#capitulo-01">
+    <span class="site-header__brand-mark" aria-hidden="true"></span>
+    <span class="site-header__brand-text">Un espacio para compartir</span>
+  </a>
+
+  <p class="site-header__current">
+    <span class="site-header__count"
+      >{{ count() }} <span aria-hidden="true">/</span> {{ totalLabel }}</span
+    >
+    <span class="site-header__name">{{ ui.active().title }}</span>
+  </p>
+
+  <div class="site-header__actions">
+    <button type="button" class="site-header__action" (click)="ui.toggleFicha()">Ficha</button>
+    <button
+      #toggle
+      type="button"
+      class="site-header__action"
+      aria-controls="menu-capitulos"
+      [attr.aria-expanded]="menuOpen()"
+      (click)="toggleMenu()"
+    >
+      <span class="site-header__toggle-icon" aria-hidden="true"><i></i><i></i></span>
+      Capítulos
+    </button>
+  </div>
+</div>
+
+<div class="site-header__progress" aria-hidden="true">
+  <span
+    class="site-header__progress-fill"
+    [style.transform]="'scaleX(' + ui.progress() + ')'"
+  ></span>
+</div>
+
+<nav
+  id="menu-capitulos"
+  class="site-menu"
+  data-room-overlay
+  [class.site-menu--open]="menuOpen()"
+  aria-label="Capítulos del documental"
+>
+  <ol class="site-menu__list">
+    @for (chapter of ui.chapters; track chapter.id; let i = $index) {
+      <li>
+        <button
+          #menuLink
+          type="button"
+          class="site-menu__link"
+          [class.site-menu__link--active]="chapter.id === ui.activeId()"
+          [attr.aria-current]="chapter.id === ui.activeId() ? 'true' : null"
+          (click)="selectFromMenu(chapter.id)"
+        >
+          <span class="site-menu__number">{{ chapter.number }}</span>
+          <span class="site-menu__title">{{ chapter.title }}</span>
+          <span class="site-menu__kicker">{{ chapter.kicker }}</span>
+        </button>
+      </li>
+    }
+  </ol>
+  <p class="site-menu__hint">Selecciona un capítulo para cambiar la vista</p>
+</nav>

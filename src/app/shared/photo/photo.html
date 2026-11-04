@@ -1,0 +1,29 @@
+<div class="photo__frame">
+  @if (isPending()) {
+    <app-pending-frame
+      class="photo__pending"
+      [class.pending-frame--dark]="dark()"
+      [class.pending-frame--fill]="fill()"
+      kind="image"
+      [path]="media().src ?? '/assets/images/' + media().id + '.webp'"
+    />
+  } @else {
+    <img
+      class="photo__img"
+      [src]="media().src"
+      [alt]="media().alt"
+      [attr.loading]="eager() ? 'eager' : 'lazy'"
+      [attr.fetchpriority]="eager() ? 'high' : null"
+      decoding="async"
+      (error)="failed.set(true)"
+    />
+  }
+</div>
+@if (showCaption() && (media().caption || media().credit)) {
+  <figcaption class="photo__caption">
+    <span>{{ media().caption }}</span>
+    @if (media().credit) {
+      <span class="photo__credit">{{ media().credit }}</span>
+    }
+  </figcaption>
+}
