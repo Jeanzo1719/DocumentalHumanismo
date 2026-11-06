@@ -47,7 +47,7 @@ export class Ficha {
   ];
 
   protected readonly states: FichaChapter[] = [
-    { number: '01', title: 'Portada', state: 'Proyección — documental pendiente de producción' },
+    { number: '01', title: 'Portada', state: 'Proyección del documental completo' },
     { number: '02', title: 'Contexto y escenario', state: 'Contexto documentado' },
     { number: '03', title: 'La problemática', state: 'Declaración y respuesta de la experiencia' },
     {
@@ -61,7 +61,7 @@ export class Ficha {
       title: 'Reflexión final',
       state: 'Registro disponible (2 min 50 s, vertical)',
     },
-    { number: '07', title: 'Créditos', state: 'Frase de cierre pendiente' },
+    { number: '07', title: 'Créditos', state: 'Equipo y agradecimientos' },
   ];
 
   private readonly close = viewChild<ElementRef<HTMLButtonElement>>('close');

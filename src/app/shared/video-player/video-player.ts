@@ -1,5 +1,4 @@
 import { Component, ElementRef, input, output, viewChild } from '@angular/core';
-import { PENDING } from '../../content/pending';
 import { PendingFrame } from '../pending-frame/pending-frame';
 
 /**
@@ -18,8 +17,6 @@ export class VideoPlayer {
   readonly poster = input<string | null>(null);
   readonly captions = input<string | null>(null);
   readonly title = input.required<string>();
-  readonly pendingPath = input<string>('');
-  readonly pendingLabel = input<string>(PENDING);
   readonly preload = input<'none' | 'metadata'>('none');
   readonly dark = input(false);
 

@@ -14,7 +14,6 @@
         [poster]="previewUrl() ? null : documentary.video.poster"
         [captions]="documentary.video.captions"
         [title]="documentary.title + ' — documental completo'"
-        [pendingPath]="'/assets/videos/documental.mp4'"
         preload="metadata"
         [dark]="true"
         (durationChange)="onDuration($event)"

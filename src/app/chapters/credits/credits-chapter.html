@@ -95,10 +95,12 @@
       </section>
     }
 
-    <section class="dos-block">
-      <h4 class="dos-label">Frase de cierre</h4>
-      <p class="dos-note">{{ credits.closing }}</p>
-    </section>
+    @if (credits.closing && !credits.closing.startsWith('PENDIENTE')) {
+      <section class="dos-block">
+        <h4 class="dos-label">Frase de cierre</h4>
+        <p class="dos-note">{{ credits.closing }}</p>
+      </section>
+    }
 
     <section class="dos-block">
       <h4 class="dos-label">Navegación</h4>

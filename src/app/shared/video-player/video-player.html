@@ -17,11 +17,6 @@
   </video>
 } @else {
   <div class="video-player__empty">
-    <app-pending-frame
-      kind="video"
-      [path]="pendingPath()"
-      [label]="pendingLabel()"
-      [class.pending-frame--dark]="dark()"
-    />
+    <app-pending-frame [class.pending-frame--dark]="dark()" kind="video" />
   </div>
 }
