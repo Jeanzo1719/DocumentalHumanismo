@@ -72,9 +72,7 @@ export class CoverChapter {
     if (this.realDuration() !== null) {
       return `Duración real · ${formatTime(this.realDuration()!)}`;
     }
-    return this.masterSrc
-      ? 'Documental disponible'
-      : `${this.range.minMinutes}–${this.range.maxMinutes} min · pendiente de producción`;
+    return this.masterSrc ? 'Documental disponible' : 'Documental completo';
   }
 
   private revokePreview(): void {

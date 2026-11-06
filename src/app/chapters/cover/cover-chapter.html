@@ -5,51 +5,46 @@
   </header>
 
   <div class="v-stage-body">
-    @if (stageSrc(); as src) {
-      <div class="v-stage-frame">
-        @if (previewUrl()) {
-          <p class="v-stage-badge">Previsualización local</p>
-        }
-        <app-video-player
-          [src]="src"
-          [poster]="documentary.video.poster"
-          [captions]="documentary.video.captions"
-          [title]="documentary.title"
-          [pendingPath]="'/assets/videos/documental.mp4'"
-          [pendingLabel]="'Documental completo pendiente de producción'"
-          preload="metadata"
-          [dark]="true"
-          (durationChange)="onDuration($event)"
-        />
+    <div class="v-stage-frame">
+      @if (previewUrl()) {
+        <p class="v-stage-badge">Previsualización local</p>
+      }
+      <app-video-player
+        [src]="stageSrc()"
+        [poster]="previewUrl() ? null : documentary.video.poster"
+        [captions]="documentary.video.captions"
+        [title]="documentary.title + ' — documental completo'"
+        [pendingPath]="'/assets/videos/documental.mp4'"
+        preload="metadata"
+        [dark]="true"
+        (durationChange)="onDuration($event)"
+      />
+    </div>
+  </div>
+
+  <div class="cover-plate">
+    <p class="cover-plate-eyebrow">Documental completo · {{ documentary.year }}</p>
+    <h3 class="cover-plate-title">{{ documentary.title }}</h3>
+    <p class="cover-plate-sub">{{ documentary.subtitle }}</p>
+    <dl class="cover-plate-slate">
+      <div>
+        <dt>Escenario</dt>
+        <dd>{{ documentary.setting }}</dd>
       </div>
-    } @else {
-      <div class="v-stage-frame v-stage-frame--plate">
-        <p class="plate-eyebrow">
-          Documental completo · <strong>pendiente de producción</strong> · {{ documentary.year }}
-        </p>
-        <h3 class="plate-title">{{ documentary.title }}</h3>
-        <p class="plate-sub">{{ documentary.subtitle }}</p>
-        <dl class="plate-slate">
-          <div>
-            <dt>Escenario</dt>
-            <dd>{{ documentary.setting }}</dd>
-          </div>
-          <div>
-            <dt>Fecha</dt>
-            <dd>{{ documentary.date }}</dd>
-          </div>
-          <div>
-            <dt>Modalidad</dt>
-            <dd>{{ documentary.modality }}</dd>
-          </div>
-        </dl>
-        <p class="plate-note">
-          Espacio preparado para el montaje definitivo de {{ range.minMinutes }} a
-          {{ range.maxMinutes }} minutos. Los registros de la experiencia (caps. 04 y 06) son piezas
-          breves, no el documental completo.
-        </p>
+      <div>
+        <dt>Fecha</dt>
+        <dd>{{ documentary.date }}</dd>
       </div>
-    }
+      <div>
+        <dt>Modalidad</dt>
+        <dd>{{ documentary.modality }}</dd>
+      </div>
+    </dl>
+    <p class="cover-plate-note">
+      Espacio preparado para el montaje definitivo de {{ range.minMinutes }} a
+      {{ range.maxMinutes }} minutos. Los registros de la experiencia (caps. 04 y 06) son piezas
+      breves, no el documental completo.
+    </p>
   </div>
 
   @if (durationWarning(); as warning) {

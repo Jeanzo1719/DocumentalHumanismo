@@ -42,6 +42,7 @@ html {
 
 body {
   margin: 0;
+  position: relative;
   height: 100%;
   overflow: hidden;
   font-family: var(--font-body);
@@ -715,6 +716,80 @@ a {
       outline-offset: 2px;
     }
   }
+}
+
+/* Portada: placa de créditos bajo el escenario, compacta y centrada. */
+.cover-plate {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.45rem;
+  margin-top: 0.9rem;
+  padding-top: 0.8rem;
+  border-top: 1px solid rgba(239, 230, 214, 0.12);
+  overflow-y: auto;
+  min-height: 0;
+  text-align: center;
+}
+
+.cover-plate-eyebrow {
+  margin: 0;
+  font-size: 0.62rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--stone);
+}
+
+.cover-plate-title {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 350;
+  font-size: clamp(1.5rem, 2.6vw, 2.3rem);
+  line-height: 1.05;
+  letter-spacing: -0.01em;
+  color: var(--ivory);
+}
+
+.cover-plate-sub {
+  margin: 0;
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 300;
+  font-size: clamp(0.92rem, 1.4vw, 1.1rem);
+  line-height: 1.35;
+  color: var(--sand);
+}
+
+.cover-plate-slate {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.4rem 2.5rem;
+  margin: 0.35rem 0 0;
+
+  dt {
+    font-size: 0.6rem;
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--night-muted);
+  }
+
+  dd {
+    margin: 0.15rem 0 0;
+    font-size: 0.82rem;
+    line-height: 1.4;
+    color: var(--night-ink);
+  }
+}
+
+.cover-plate-note {
+  margin: 0.3rem 0 0;
+  max-width: 58ch;
+  font-size: 0.74rem;
+  line-height: 1.55;
+  color: var(--night-muted);
 }
 
 @media (prefers-reduced-motion: reduce) {
