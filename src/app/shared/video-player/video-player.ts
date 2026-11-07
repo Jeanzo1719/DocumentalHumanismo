@@ -1,4 +1,5 @@
-import { Component, ElementRef, input, output, viewChild } from '@angular/core';
+import { Component, ElementRef, inject, input, output, viewChild } from '@angular/core';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { PendingFrame } from '../pending-frame/pending-frame';
 
 /**
@@ -19,6 +20,16 @@ export class VideoPlayer {
   readonly title = input.required<string>();
   readonly preload = input<'none' | 'metadata'>('none');
   readonly dark = input(false);
+
+  /** URL de reproductor externo (p. ej. Google Drive). Se usa cuando no hay `src` local. */
+  readonly embedUrl = input<string | null>(null);
+
+  private readonly sanitizer = inject(DomSanitizer);
+
+  /** La URL externa se confía solo por haberse declarado como contenido en `src/app/content/`. */
+  protected safeEmbed(): SafeResourceUrl {
+    return this.sanitizer.bypassSecurityTrustResourceUrl(this.embedUrl() ?? '');
+  }
 
   /** Duración en segundos, emitida cuando el navegador lee los metadatos. */
   readonly durationChange = output<number>();

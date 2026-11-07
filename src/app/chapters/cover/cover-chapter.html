@@ -11,6 +11,7 @@
       }
       <app-video-player
         [src]="stageSrc()"
+        [embedUrl]="documentary.video.embedUrl"
         [poster]="previewUrl() ? null : documentary.video.poster"
         [captions]="documentary.video.captions"
         [title]="documentary.title + ' — documental completo'"

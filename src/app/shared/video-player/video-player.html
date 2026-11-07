@@ -15,6 +15,15 @@
     }
     Tu navegador no puede reproducir este video.
   </video>
+} @else if (embedUrl()) {
+  <iframe
+    class="video-player__embed"
+    [src]="safeEmbed()"
+    allow="autoplay; encrypted-media; fullscreen"
+    allowfullscreen
+    [title]="title()"
+  >
+  </iframe>
 } @else {
   <div class="video-player__empty">
     <app-pending-frame [class.pending-frame--dark]="dark()" kind="video" />

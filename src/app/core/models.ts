@@ -65,6 +65,8 @@ export interface DocumentaryInfo {
     src: string | null;
     poster: string | null;
     captions: string | null;
+    /** URL de reproductor externo en `iframe` (p. ej. Google Drive `/preview`). `null` = sin incrustación. */
+    embedUrl: string | null;
   };
   chapterMarkers: ChapterMarker[];
 }

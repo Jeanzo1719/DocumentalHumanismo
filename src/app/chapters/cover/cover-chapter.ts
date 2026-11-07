@@ -22,6 +22,9 @@ export class CoverChapter {
   /** El MP4 definitivo declarado en `documentary.ts` (null = pendiente). */
   protected readonly masterSrc = documentary.video.src;
 
+  /** Reproductor externo (p. ej. Google Drive) cuando el archivo vive fuera del sitio. */
+  protected readonly embeddedSrc = documentary.video.embedUrl;
+
   /** Previsualización de un MP4 local. Nunca sustituye al documental definitivo. */
   protected readonly previewUrl = signal<string | null>(null);
 
@@ -72,7 +75,7 @@ export class CoverChapter {
     if (this.realDuration() !== null) {
       return `Duración real · ${formatTime(this.realDuration()!)}`;
     }
-    return this.masterSrc ? 'Documental disponible' : 'Documental completo';
+    return this.masterSrc || this.embeddedSrc ? 'Documental disponible' : 'Documental completo';
   }
 
   private revokePreview(): void {
