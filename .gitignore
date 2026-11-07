@@ -24,3 +24,4 @@ pnpm-debug.log
 # Sistema
 .DS_Store
 Thumbs.db
+app.log
